@@ -1,1 +1,4 @@
-<h1>Hello world!</h1>
+<% @videos.each do |video| %>
+<%= "<p>#{video['title']}</p>"%>
+<%= "<iframe type=\"text/html\" width=\"640\" height=\"390\" src=\"http://www.youtube.com/embed/#{video['video_id']}?autoplay=0\" frameborder=\"0\"/></iframe>" %>
+<% end %>

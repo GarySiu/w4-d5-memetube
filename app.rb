@@ -16,7 +16,7 @@ get '/' do
 end
 
 get '/videos/' do # index
-  sql = 'SELECT * FROM VIDEOS'
+  sql = 'SELECT * FROM VIDEOS ORDER BY id DESC' #Most recently added videos first
   @videos = @db.exec(sql)
   erb :index
 end

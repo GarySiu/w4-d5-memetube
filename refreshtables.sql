@@ -4,5 +4,6 @@ CREATE TABLE videos (
   title VARCHAR(140),
   video_id VARCHAR(15),
   description VARCHAR(500),
-  genre VARCHAR(30)
+  genre VARCHAR(30),
+  views INT4
 );

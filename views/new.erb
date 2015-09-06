@@ -1,0 +1,9 @@
+<% if @error %>
+  <h2><%= @error %></h2>
+<% end %>
+<form action="/videos/" method="post">
+  <input type="text" size="80" name="video_id" id="video_id" placeholder="Youtube URL"><br><br>
+  <input type="text" size="80" name="title" id="title" placeholder="Enter a title"><br><br><!-- This is temporary! Will do it properly with css -->
+  <textarea maxlength="500" cols="79" rows="5" placeholder="Enter a description" name="description" id="description"></textarea><br><br>
+  <button type="submit">Add new video</button>
+</form>

@@ -39,14 +39,7 @@ params[:description].gsub!("'", "''")
     sql = "INSERT INTO videos (title, video_id, description, views) VALUES ('#{params[:title]}', '#{params[:video_id]}', '#{params[:description]}', 1)"
     @db.exec(sql)
 
-    #We need to select again to get the video's id to redirect the user to the video's new show page
-    #This gets super convoluted because we need to get the value out the enumerable.
-
-    sql = "SELECT id FROM videos WHERE video_id = '#{params[:video_id]}'"
-    videos = @db.exec(sql)
-    id = ''
-    videos.each { |video| id = video['id']}
-    redirect to "/videos/#{id}"
+    redirect to "/videos/#{params[:id]}"
 
   elsif params[:video_id]['youtu.be/'] #otherwise look for a shortened youtube link
     params[:video_id] = params[:video_id].slice(params[:video_id].index('.be/')+4, 11)
@@ -54,11 +47,7 @@ params[:description].gsub!("'", "''")
     sql = "INSERT INTO videos (title, video_id, description, views) VALUES ('#{params[:title]}', '#{params[:video_id]}', '#{params[:description]}', 1)"
     @db.exec(sql)
 
-    sql = "SELECT id FROM videos WHERE video_id = '#{params[:video_id]}'"
-    videos = @db.exec(sql)
-    id = ''
-    videos.each { |video| id = video['id']}
-    redirect to "/videos/#{id}"
+     redirect to "/videos/#{params[:id]}"
 
   else
     @error = 'Invalid youtube video id.'

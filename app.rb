@@ -36,18 +36,21 @@ params[:description].gsub!("'", "''")
   if params[:video_id]['youtube.com/watch?v='] # try to detect if it's a usable normal youtube link
     params[:video_id] = params[:video_id].slice(params[:video_id].index('=')+1, 11)
 
-    sql = "INSERT INTO videos (title, video_id, description, views) VALUES ('#{params[:title]}', '#{params[:video_id]}', '#{params[:description]}', 1)"
-    @db.exec(sql)
-
-    redirect to "/videos/#{params[:id]}"
+    sql = "INSERT INTO videos (title, video_id, description, views) VALUES ('#{params[:title]}', '#{params[:video_id]}', '#{params[:description]}', 1) RETURNING id"
+    result = @db.exec(sql)
+    id = result.first['id']
+    # binding.pry
+    redirect to "/videos/#{id}"
 
   elsif params[:video_id]['youtu.be/'] #otherwise look for a shortened youtube link
     params[:video_id] = params[:video_id].slice(params[:video_id].index('.be/')+4, 11)
 
-    sql = "INSERT INTO videos (title, video_id, description, views) VALUES ('#{params[:title]}', '#{params[:video_id]}', '#{params[:description]}', 1)"
-    @db.exec(sql)
+    sql = "INSERT INTO videos (title, video_id, description, views) VALUES ('#{params[:title]}', '#{params[:video_id]}', '#{params[:description]}', 1) RETURNING id"
+    result = @db.exec(sql)
+    # binding.pry
+    id = result.first['id']
 
-     redirect to "/videos/#{params[:id]}"
+     redirect to "/videos/#{id}"
 
   else
     @error = 'Invalid youtube video id.'

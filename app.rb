@@ -59,15 +59,10 @@ params[:description].gsub!("'", "''")
 end
 
 get '/videos/random' do #Got to be before the show page or it will get overridden
-  sql = "SELECT * FROM videos"
-  videos = @db.exec(sql)
-  all_videos = []
+  sql = "SELECT id FROM videos ORDER BY random() limit 1"
+  random = @db.exec(sql).first
 
-  videos.each do |video|
-    all_videos << video['id']
-  end
-
-  redirect to "/videos/#{all_videos.sample}"
+  redirect to "/videos/#{random['id']}"
 end
 
 get '/videos/:id' do #show

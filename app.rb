@@ -66,6 +66,18 @@ params[:description].gsub!("'", "''")
   end
 end
 
+get '/videos/random' do #Got to be before the show page or it will get overridden
+  sql = "SELECT * FROM videos"
+  videos = @db.exec(sql)
+  all_videos = []
+
+  videos.each do |video|
+    all_videos << video['id']
+  end
+
+  redirect to "/videos/#{all_videos.sample}"
+end
+
 get '/videos/:id' do #show
   sql = "SELECT * FROM videos WHERE id = #{params[:id]}"
   @videos = @db.exec(sql)

@@ -26,12 +26,12 @@ get '/videos/new' do # new
 end
 
 post '/videos/' do # create
-  # binding.pry
-  # This whole section is obviously not DRY but I can't get it to work any other way
+# binding.pry
+# This whole section is obviously not DRY but I can't get it to work any other way
 
-  params[:title].gsub!("'", "''")
-  params[:description].gsub!("'", "''")
-  # params[:genre].gsub!("'", "''") Not adding genre yet
+params[:title].gsub!("'", "''")
+params[:description].gsub!("'", "''")
+# params[:genre].gsub!("'", "''") Not adding genre yet
 
   if params[:video_id]['youtube.com/watch?v='] # try to detect if it's a usable normal youtube link
     params[:video_id] = params[:video_id].slice(params[:video_id].index('=')+1, 11)
@@ -83,4 +83,35 @@ get '/videos/:id/edit' do #edit
   @db.exec(sql)
   @videos = @db.exec(sql)
   erb :edit
+end
+
+post '/videos/:id' do #update
+  # Safety first!
+  params[:title].gsub!("'", "''")
+  params[:description].gsub!("'", "''")
+
+  if params[:video_id]['youtube.com/watch?v='] # try to detect if it's a usable normal youtube link
+    params[:video_id] = params[:video_id].slice(params[:video_id].index('=')+1, 11)
+
+    sql = "UPDATE videos SET title = '#{params[:title]}', description = '#{params[:description]}', video_id = '#{params[:video_id]}' where id = #{params[:id]}"
+    @db.exec(sql)
+
+    redirect to "/videos/#{params[:id]}"
+
+  elsif params[:video_id]['youtu.be/'] #otherwise look for a shortened youtube link
+    params[:video_id] = params[:video_id].slice(params[:video_id].index('.be/')+4, 11)
+
+    sql = "UPDATE videos SET title = '#{params[:title]}', description = '#{params[:description]}', video_id = '#{params[:video_id]}' where id = #{params[:id]}"
+    @db.exec(sql)
+
+    redirect to "/videos/#{params[:id]}"
+
+  else
+    # I can't work out a good way to pass an error out so for now the user silently goes back to the show page.
+    # Other params are updated but not video ID.
+
+    sql = "UPDATE videos SET title = '#{params[:title]}', description = '#{params[:description]}' where id = #{params[:id]}"
+
+    redirect to "/videos/#{params[:id]}"
+  end
 end

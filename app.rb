@@ -54,7 +54,7 @@ post '/videos/' do # create
     sql = "INSERT INTO videos (title, video_id, description, views) VALUES ('#{params[:title]}', '#{params[:video_id]}', '#{params[:description]}', 1)"
     @db.exec(sql)
 
-sql = "SELECT id FROM videos WHERE video_id = '#{params[:video_id]}'"
+    sql = "SELECT id FROM videos WHERE video_id = '#{params[:video_id]}'"
     videos = @db.exec(sql)
     id = ''
     videos.each { |video| id = video['id']}
@@ -70,4 +70,10 @@ get '/videos/:id' do #show
   sql = "SELECT * FROM videos WHERE id = #{params[:id]}"
   @videos = @db.exec(sql)
   erb :show
+end
+
+get '/videos/:id/delete' do #delete/destroy
+  sql = "DELETE FROM videos WHERE id = #{params[:id]}"
+  @db.exec(sql)
+  redirect to '/videos/'
 end

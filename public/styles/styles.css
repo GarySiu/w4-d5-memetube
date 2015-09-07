@@ -1,0 +1,32 @@
+/*body {
+  background: -webkit-linear-gradient(hotpink, black); 
+  background: -o-linear-gradient(hotpink, black);
+  background: -moz-linear-gradient(hotpink, black); 
+  background: linear-gradient(hotpink, black);
+} */
+/* You're safe. For now. */
+
+div {
+  /*border: 1px solid black;*/
+}
+
+nav ul, nav ul li {
+  padding: 0;
+  display: inline;
+}
+
+div.video-container {
+  text-align: left;
+  width: 640px;
+  margin: 0 auto;
+}
+
+.preformatted {
+  white-space: pre-wrap;
+  text-align: left;
+  padding: 20px 0;
+}
+
+.right-align {
+  text-align: right;
+}

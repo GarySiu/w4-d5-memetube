@@ -1,5 +1,8 @@
 <% @videos.each do |video| %>
-<%= "<p>#{video['title']} [<a href=\"/videos/#{video['id']}/edit\">edit</a>] [<a href=\"/videos/#{video['id']}/delete\">delete</a>]</p>"%>
-<%= "<iframe type=\"text/html\" width=\"640\" height=\"390\" src=\"http://www.youtube.com/embed/#{video['video_id']}?autoplay=0\" frameborder=\"0\"/></iframe>" %>
-<%= "<p>#{video['description']}</p>" %>
+<%= "<div class=\"video-container\">" %>
+<%= "<div>#{video['title']}</p>"%>
+<%= "<iframe type=\"text/html\" width=\"640\" height=\"390\" src=\"http://www.youtube.com/embed/#{video['video_id']}?autoplay=0\" frameborder=\"0\"/></iframe>"%>
+<%= "<div class=\"right-align\">[<a href=\"/videos/#{video['id']}/edit\">edit</a>] [<a href=\"/videos/#{video['id']}/delete\">delete</a>]</div>"%>
+<%= "<div class=\"preformatted\">#{video['description']}</p>" %>
+<%= "</div>" %>
 <% end %>

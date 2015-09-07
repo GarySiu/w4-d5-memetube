@@ -1,11 +1,11 @@
 <% if @error %>
   <h2><%= @error %></h2>
 <% end %>
-<%= "<div class=\"video-container\">" %>  <!-- Not semantic. No time to care. -->
+<div class="video-container">  <!-- Not semantic. No time to care. -->
 <form action="/videos/" method="post">
   <div class="form-row"><input type="text" size="80" name="video_id" id="video_id" placeholder="Youtube URL"></div>
   <div class="form-row"><input type="text" size="80" name="title" id="title" placeholder="Enter a title"></div><!-- This is temporary! Will do it properly with css -->
   <div class="form-row"><textarea maxlength="500" cols="79" rows="5" placeholder="Enter a description" name="description" id="description"></textarea></div>
   <div class="form-row"><button type="submit">Add new video</button></div>
-<%= "</div>" %>
+</div>
 </form>

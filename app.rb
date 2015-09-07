@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'sinatra/reloader' if production?
+require 'sinatra/reloader' if development?
 require 'pry'
 require 'pg'
 

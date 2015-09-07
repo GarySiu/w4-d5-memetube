@@ -77,3 +77,10 @@ get '/videos/:id/delete' do #delete/destroy
   @db.exec(sql)
   redirect to '/videos/'
 end
+
+get '/videos/:id/edit' do #edit
+  sql = "SELECT * FROM videos WHERE id = #{params[:id]}"
+  @db.exec(sql)
+  @videos = @db.exec(sql)
+  erb :edit
+end

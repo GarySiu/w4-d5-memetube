@@ -1,0 +1,8 @@
+<% @videos.each do |video| %>
+<%= "<form action=\"/videos/#{video['id']}\" method=\"post\">" %>
+  <input type="text" size="80" name="video_id" id="video_id" placeholder="Youtube URL" value="<%= "http://youtu.be/#{video['video_id']}" %>"><br><br>
+  <input type="text" size="80" name="title" id="title" placeholder="Enter a title" value="<%= "#{video['title']}" %>"><br><br><!-- This is temporary! Will do it properly with css -->
+  <textarea maxlength="500" cols="79" rows="5" placeholder="Enter a description" name="description" id="description"><%= "#{video['description']}" %></textarea><br><br>
+  <button type="submit">Update video</button>
+</form>
+<% end %>
